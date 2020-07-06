@@ -1,8 +1,8 @@
 package itmo.vladimir.BirthdayReminderWebApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -23,6 +23,7 @@ public class BirthdayBoy
     /**this field contains relation degree information of birthday boy*/
     private String relationDegree; //todo: степень родства
     private LocalDateTime birthday;
+    @Column(unique = true, nullable = false)
     private String email;
     private String username;
 
@@ -32,5 +33,6 @@ public class BirthdayBoy
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore //todo: чтобы избежать рекурсии при возврате JSON
     private User user;
 }
