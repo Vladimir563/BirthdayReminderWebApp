@@ -4,11 +4,10 @@ import itmo.vladimir.BirthdayReminderWebApp.entity.BirthdayBoy;
 import itmo.vladimir.BirthdayReminderWebApp.entity.User;
 import itmo.vladimir.BirthdayReminderWebApp.repository.BirthdayBoyRepository;
 import itmo.vladimir.BirthdayReminderWebApp.repository.UserRepository;
+import itmo.vladimir.BirthdayReminderWebApp.service.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 
 
@@ -19,6 +18,12 @@ public class BirthdayBoyController
 {
     private BirthdayBoyRepository birthdayBoyRepository;
     private UserRepository userRepository;
+    private MailSender mailSender;
+
+    @Autowired
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Autowired
     public void setBirthdayBoyRepository(BirthdayBoyRepository birthdayBoyRepository) {
@@ -31,7 +36,6 @@ public class BirthdayBoyController
     }
 
 
-    //FIXME: нереализовано!!!
     @GetMapping(value = "/get_all_bb") //todo: получить список всех именинников пользователя
     public Iterable<BirthdayBoy> findAllBBbyUserName(@RequestParam String username)
     {
@@ -56,7 +60,7 @@ public class BirthdayBoyController
     {
         if(birthdayBoyRepository.findBBbyEmail(birthdayBoy.getEmail()).isPresent())
         {
-            return "This email registered in database already. Please try with another (unregistered) email";
+            return "This email already registered in database. Please try with another (unregistered) email";
         }
         User user = userRepository.findById(birthdayBoy.getUserId()).get(); //получаю пользователя по id из запроса
         birthdayBoy.setUser(user); //устанавливаю данного пользователя для именинника
@@ -65,4 +69,13 @@ public class BirthdayBoyController
         birthdayBoyRepository.save(birthdayBoy); //сохраняю именинника в БД
         return "200 OK";
     }
+
+    @GetMapping("/send")
+    public @ResponseBody String sendMessage(@RequestParam String bb_email)
+    {
+        System.out.println(bb_email);
+        mailSender.send(bb_email,"Just message", "hello from BirthdayReminderWebApp!");
+        return "message was send";
+    }
+
 }

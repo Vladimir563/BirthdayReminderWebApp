@@ -4,6 +4,7 @@ package itmo.vladimir.BirthdayReminderWebApp.controllers;
 import itmo.vladimir.BirthdayReminderWebApp.entity.BirthdayBoy;
 import itmo.vladimir.BirthdayReminderWebApp.entity.User;
 import itmo.vladimir.BirthdayReminderWebApp.repository.UserRepository;
+import itmo.vladimir.BirthdayReminderWebApp.service.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,11 +24,15 @@ public class UserController
 
     private UserRepository userRepository;
 
+
+
     @Autowired
     public UserController(UserRepository userRepository)
     {
         this.userRepository = userRepository;
     }
+
+
 
     //FIXME: oauth2 авторизация
 //    @GetMapping(value = "/")
@@ -74,6 +79,10 @@ public class UserController
         return "200 OK";
     }
 
-
+    @GetMapping(value = "/send")
+    public @ResponseBody String sendCongratulationsMessage()
+    {
+        return "success sending message";
+    }
 }
 
