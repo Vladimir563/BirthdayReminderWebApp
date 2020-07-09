@@ -8,7 +8,6 @@ import itmo.vladimir.BirthdayReminderWebApp.service.GMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Optional;
@@ -57,7 +56,6 @@ public class BirthdayBoyController
         return birthdayBoyRepository.findBBbyNameAndSurname(bbName,bbSurname);
     }
 
-
     //TODO: получение обьекта из запроса пользователя
     @PostMapping(value = "/add") //todo: гарантировано будет POST запрос
     public @ResponseBody String addBirthdayBoy(@RequestBody BirthdayBoy birthdayBoy)
@@ -74,12 +72,12 @@ public class BirthdayBoyController
         return "200 OK";
     }
 
-    @GetMapping(value = "/send")
-    public String sendCongratulationsMessage(@RequestParam String sender, @RequestParam String receiver,
-                                             @RequestParam String subject, @RequestParam String text) throws IOException, MessagingException
-    {
-        String textMessage = String.format("%s !!! \n(from %s with best wishes)",text,sender);
-        gMailSender.sendMessage(sender,receiver,subject,textMessage);
-        return "success sending message";
-    }
+//    @GetMapping(value = "/send")
+//    public String sendCongratulationsMessage(@RequestParam String sender, @RequestParam String receiver,
+//                                             @RequestParam String subject, @RequestParam String text) throws IOException, MessagingException
+//    {
+//        String textMessage = String.format("%s !!! \n(from %s with best wishes)",text,sender);
+//        gMailSender.sendMessage(sender,receiver,subject,textMessage);
+//        return "success sending message";
+//    }
 }

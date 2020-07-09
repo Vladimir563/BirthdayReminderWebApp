@@ -3,16 +3,13 @@ package itmo.vladimir.BirthdayReminderWebApp.controllers;
 
 import itmo.vladimir.BirthdayReminderWebApp.entity.User;
 import itmo.vladimir.BirthdayReminderWebApp.repository.UserRepository;
-import itmo.vladimir.BirthdayReminderWebApp.service.GMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 //import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-
-import javax.mail.MessagingException;
-import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 
 @SpringBootApplication
@@ -22,7 +19,6 @@ public class UserController
 {
 
     private UserRepository userRepository;
-
 
     @Autowired
     public UserController(UserRepository userRepository)
@@ -76,6 +72,13 @@ public class UserController
         return "200 OK";
     }
 
+
+    @GetMapping(value = "/ok")
+    public @ResponseBody String okmethod(@RequestParam String first, @RequestParam String second)
+    {
+        System.out.println(first + " : " + second);
+        return "ok!!!!!!!!!!!!!!!!!!!!!";
+    }
 
 }
 

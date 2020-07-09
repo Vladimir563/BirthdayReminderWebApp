@@ -3,6 +3,8 @@ package itmo.vladimir.BirthdayReminderWebApp.repository;
 import itmo.vladimir.BirthdayReminderWebApp.entity.BirthdayBoy;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
