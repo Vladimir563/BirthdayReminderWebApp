@@ -71,13 +71,4 @@ public class BirthdayBoyController
         birthdayBoyRepository.save(birthdayBoy); //сохраняю именинника в БД
         return "200 OK";
     }
-
-//    @GetMapping(value = "/send")
-//    public String sendCongratulationsMessage(@RequestParam String sender, @RequestParam String receiver,
-//                                             @RequestParam String subject, @RequestParam String text) throws IOException, MessagingException
-//    {
-//        String textMessage = String.format("%s !!! \n(from %s with best wishes)",text,sender);
-//        gMailSender.sendMessage(sender,receiver,subject,textMessage);
-//        return "success sending message";
-//    }
 }

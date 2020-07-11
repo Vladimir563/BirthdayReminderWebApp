@@ -1,0 +1,44 @@
+#BirthdayReminder web application developed to congratulate user’s loved ones on a birthday
+
+package itmo.vladimir.BirthdayReminderWebApp.entity;
+class User - describes user properties (connected with birthday boys by one-to-many relation)
+
+package itmo.vladimir.BirthdayReminderWebApp.entity;
+сlass BirthdayBoy - describes birthday boy properties (connected with users by many-to-one relation)
+
+package itmo.vladimir.BirthdayReminderWebApp.repository;
+interface BirthdayBoyRepository - allows to work with objects (BirthdayBoy) as database entities
+method findAllBBbyUserName(String username) - searches for all the given person’s birthday by his name
+method findBBbyNameAndSurname(String bbName, String bbSurname) - searches for a birthday by given name and surname
+method findBBbyEmail(String email) - searches for a birthday by email
+
+package itmo.vladimir.BirthdayReminderWebApp.repository;
+interface UserRepository - allows to work with objects (User) as database entities
+method findUserByName(String userName) - searches for a user in the database by his name
+
+package itmo.vladimir.BirthdayReminderWebApp.components;
+class CongratulationsThread - this class describes the behavior of the Thread necessary to send greetings to birthday
+
+package itmo.vladimir.BirthdayReminderWebApp.config;
+class ThreadConfig - describes the configuration for creating a thread's pool
+method threadPoolTaskExecutor() - creates and initializes a thread's pool
+
+package itmo.vladimir.BirthdayReminderWebApp.controllers;
+class BirthdayBoyController - processes POST and GET requests for birthday boys from a client
+method (GET) findAllBBbyUserName(@RequestParam String username) - searches for all the given person’s birthday by user name
+method (GET) findBBbyNameAndSurname(@RequestParam String bbSurname, @RequestParam String bbName) - searches for a birthday person by name and surname
+method (POST) addBirthdayBoy(@RequestBody BirthdayBoy birthdayBoy) - adds a new birthday boy
+
+package itmo.vladimir.BirthdayReminderWebApp.controllers;
+class UserController - handles GET and POST requests from users
+method registration(@RequestBody User user) - registers a new user in the database
+
+package itmo.vladimir.BirthdayReminderWebApp.service;
+class CongratulationsService - contains a scheduled method for sending greetings to birthday boys
+method start() - called after a specified time, receives a stream object from the context and passes a set of instructions to the thread's pool
+
+package itmo.vladimir.BirthdayReminderWebApp.service;
+class GMailSender -contains a method for sending messages
+method sendMessage(String sender,String receiver, String subject, String congratulationsText) -
+    connects to the GMail service, creates and initializes the message object, logs in using the password
+    from the properties file and sends the message to the receiving

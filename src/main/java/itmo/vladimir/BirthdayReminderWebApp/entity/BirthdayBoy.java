@@ -26,6 +26,7 @@ public class BirthdayBoy
     @Column(unique = true, nullable = false)
     private String email;
     private String username;
+    private String sex;
 
     @Transient //не войдет в сериализацию и не будет столбцом БД, нужно чтобы получить id пользователя из JSON
     // и по данному id из базы присвоить пользователя имениннику

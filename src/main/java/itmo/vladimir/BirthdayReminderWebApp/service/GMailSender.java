@@ -17,9 +17,11 @@ public class GMailSender
     public void sendMessage(String sender,String receiver, String subject, String congratulationsText) throws IOException, MessagingException
     {
         final Properties properties = new Properties();
+        //загрузка файла "mail.properties"
         properties.load(GMailSender.class.getClassLoader().getResourceAsStream("mail.properties"));
 
         Session mailSession = Session.getDefaultInstance(properties);
+        //создаем обьект сообщения
         MimeMessage message = new MimeMessage(mailSession);
         message.setFrom(new InternetAddress(properties.getProperty("mail.smtps.user")));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
